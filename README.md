@@ -6,7 +6,7 @@ This repository automatically tracks and packages new releases of the [Google Ca
 
 ## Features
 
-- ✅ Automated SDK updates every 12 hours
+- ✅ Automated SDK updates every 24 hours
 - ✅ XCFramework distribution for Apple Silicon support
 - ✅ Swift Package Manager integration
 - ✅ iOS 14.0+ support
@@ -54,7 +54,7 @@ targets: [
 
 ## Version Updates
 
-The workflow checks for new SDK versions every 12 hours. When a new version is detected:
+The workflow checks for new SDK versions every 24 hours. When a new version is detected:
 1. Downloads and packages the SDK as XCFramework
 2. Creates a new GitHub release
 3. Updates Package.swift with the new version
