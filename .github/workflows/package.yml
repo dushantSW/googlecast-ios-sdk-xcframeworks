@@ -1,0 +1,32 @@
+name: Package GoogleCast SDK
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Run every 12 hours
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  check-and-package:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check for new SDK version
+        id: check
+        run: |
+          ./.scripts/check-version.sh
+        
+      - name: Download and package SDK
+        if: steps.check.outputs.has_new_version == 'true'
+        run: |
+          ./.scripts/download-sdk.sh
+          
+      - name: Create Release
+        if: steps.check.outputs.has_new_version == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            GoogleCast.xcframework.zip
+          tag_name: ${{ steps.check.outputs.version }}
+          generate_release_notes: true
