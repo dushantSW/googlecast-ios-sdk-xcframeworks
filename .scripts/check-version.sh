@@ -15,11 +15,11 @@ fi
 
 # Check if we already have this version
 if [ -f "latest_version.txt" ] && [ "$(cat latest_version.txt)" == "$LATEST_VERSION" ]; then
-    echo "has_new_version=false" >> $GITHUB_OUTPUT
+    echo "has_new_version=false" >> "${GITHUB_OUTPUT:-/dev/stdout}"
     exit 0
 fi
 
 # New version found
 echo "$LATEST_VERSION" > latest_version.txt
-echo "has_new_version=true" >> $GITHUB_OUTPUT
-echo "version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+echo "has_new_version=true" >> "${GITHUB_OUTPUT:-/dev/stdout}"
+echo "version=$LATEST_VERSION" >> "${GITHUB_OUTPUT:-/dev/stdout}"
