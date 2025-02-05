@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-# Fetch the latest version from CocoaPods Specs
-SPECS_URL="https://api.github.com/repos/CocoaPods/Specs/contents/Specs/8/1/2/google-cast-sdk"
+# Fetch the latest version from CocoaPods Specs at specific commit
+SPECS_URL="https://api.github.com/repos/CocoaPods/Specs/contents/Specs/8/1/2/google-cast-sdk?ref=b9d7978571f5a5333954cd5ea820fa7bad13ba27"
 VERSIONS_JSON=$(curl -s "$SPECS_URL")
 
-# Extract and sort version numbers, then get the latest
-LATEST_VERSION=$(echo "$VERSIONS_JSON" | grep '"name":' | grep -o '"[0-9][0-9.]*"' | tr -d '"' | sort -V | tail -n 1)
+# Extract directory names and get the latest version using version sort
+LATEST_VERSION=$(echo "$VERSIONS_JSON" | grep '"name":' | cut -d'"' -f4 | sort -V | tail -n 1)
 
 if [ -z "$LATEST_VERSION" ]; then
     echo "Failed to find version number"
