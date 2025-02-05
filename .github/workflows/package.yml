@@ -22,6 +22,29 @@ jobs:
         run: |
           ./.scripts/download-sdk.sh
           
+      - name: Calculate Checksum
+        if: steps.check.outputs.has_new_version == 'true'
+        id: checksum
+        run: |
+          echo "::set-output name=sha256::$(swift package compute-checksum GoogleCast.xcframework.zip)"
+
+      - name: Update Package.swift
+        if: steps.check.outputs.has_new_version == 'true'
+        run: |
+          VERSION=${{ steps.check.outputs.version }}
+          CHECKSUM=${{ steps.checksum.outputs.sha256 }}
+          sed -i '' "s|/VERSION/|/$VERSION/|g" Package.swift
+          sed -i '' "s|CHECKSUM|$CHECKSUM|g" Package.swift
+          
+      - name: Commit and Push Changes
+        if: steps.check.outputs.has_new_version == 'true'
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add Package.swift latest_version.txt
+          git commit -m "chore: Update to GoogleCast SDK version ${{ steps.check.outputs.version }}"
+          git push
+          
       - name: Create Release
         if: steps.check.outputs.has_new_version == 'true'
         uses: softprops/action-gh-release@v1
@@ -30,3 +53,12 @@ jobs:
             GoogleCast.xcframework.zip
           tag_name: ${{ steps.check.outputs.version }}
           generate_release_notes: true
+          body: |
+            GoogleCast SDK version ${{ steps.check.outputs.version }}
+            
+            ## Installation
+            ```swift
+            dependencies: [
+                .package(url: "https://github.com/dushantSW/googlecast-ios-sdk-xcframeworks.git", .exact("${{ steps.check.outputs.version }}"))
+            ]
+            ```

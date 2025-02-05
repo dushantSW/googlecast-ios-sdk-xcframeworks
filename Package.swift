@@ -15,7 +15,7 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "GoogleCast",
-            url: "https://github.com/OWNER/REPO/releases/download/VERSION/GoogleCast.xcframework.zip",
+            url: "https://github.com/dushantSW/googlecast-ios-sdk-xcframeworks/releases/download/VERSION/GoogleCast.xcframework.zip",
             checksum: "CHECKSUM"
         )
     ]
