@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-# Fetch the download page
-DOWNLOAD_PAGE=$(curl -s "https://developers.google.com/cast/docs/ios_sender")
+# Fetch the latest version from CocoaPods Specs
+SPECS_URL="https://api.github.com/repos/CocoaPods/Specs/contents/Specs/8/1/2/google-cast-sdk"
+VERSIONS_JSON=$(curl -s "$SPECS_URL")
 
-# Extract latest version number
-LATEST_VERSION=$(echo "$DOWNLOAD_PAGE" | grep -o "Cast iOS SDK [0-9.]*" | head -1 | grep -o "[0-9.]*")
+# Extract and sort version numbers, then get the latest
+LATEST_VERSION=$(echo "$VERSIONS_JSON" | grep '"name":' | grep -o '"[0-9][0-9.]*"' | tr -d '"' | sort -V | tail -n 1)
 
 if [ -z "$LATEST_VERSION" ]; then
     echo "Failed to find version number"
