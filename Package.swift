@@ -20,8 +20,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "_GoogleCastBinaryTarget",
-            url: "https://github.com/dushantSW/googlecast-ios-sdk-xcframeworks/releases/download//VERSION//_GoogleCast.xcframework.zip",
-            checksum: "CHECKSUM"
+            url: "https://github.com/dushantSW/googlecast-ios-sdk-xcframeworks/releases/download//4.8.3//_GoogleCast.xcframework.zip",
+            checksum: ""
         )
     ]
 )
