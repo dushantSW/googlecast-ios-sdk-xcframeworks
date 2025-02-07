@@ -55,7 +55,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            GoogleCast.xcframework.zip
+            _GoogleCast.xcframework.zip
           tag_name: ${{ steps.check.outputs.version }}
           generate_release_notes: true
           body: |
