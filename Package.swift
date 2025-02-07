@@ -15,8 +15,10 @@ let package = Package(
     targets: [
         .target(
             name: "GoogleCastTarget",
-            dependencies: ["_GoogleCastBinaryTarget"],
-            path: "Sources/GoogleCast"
+            dependencies: [.target(name: "_GoogleCastBinaryTarget")],
+            path: "Sources/GoogleCast",
+            publicHeadersPath: ".",
+            cSettings: [.headerSearchPath(".")]
         ),
         .binaryTarget(
             name: "_GoogleCastBinaryTarget",
