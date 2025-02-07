@@ -18,7 +18,17 @@ let package = Package(
             dependencies: [.target(name: "_GoogleCastBinaryTarget")],
             path: "Sources/GoogleCast",
             publicHeadersPath: ".",
-            cSettings: [.headerSearchPath(".")]
+            cSettings: [
+                .headerSearchPath("."),
+                .headerSearchPath("./GoogleCast")
+            ],
+            linkerSettings: [
+                .linkedFramework("CoreBluetooth"),
+                .linkedFramework("CoreText"),
+                .linkedFramework("MediaPlayer"),
+                .linkedFramework("Security"),
+                .linkedFramework("SystemConfiguration", .when(platforms: [.iOS]))
+            ]
         ),
         .binaryTarget(
             name: "_GoogleCastBinaryTarget",
