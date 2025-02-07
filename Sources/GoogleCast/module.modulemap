@@ -1,8 +1,0 @@
-module GoogleCast {
-    umbrella header "GoogleCast.h"
-    
-    export *
-    module * { export * }
-    
-    requires objc
-}

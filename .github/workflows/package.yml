@@ -37,7 +37,7 @@ jobs:
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add Package.swift latest_version.txt Sources/GoogleCast
+          git add Package.swift latest_version.txt
           git commit -m "chore: Update to GoogleCast SDK version ${{ steps.check.outputs.version }}"
           git push
           

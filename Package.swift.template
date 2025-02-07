@@ -9,27 +9,10 @@ let package = Package(
     products: [
         .library(
             name: "GoogleCast",
-            targets: ["GoogleCastTarget"]
+            targets: ["_GoogleCastBinaryTarget"]
         )
     ],
     targets: [
-        .target(
-            name: "GoogleCastTarget",
-            dependencies: [.target(name: "_GoogleCastBinaryTarget")],
-            path: "Sources/GoogleCast",
-            publicHeadersPath: ".",
-            cSettings: [
-                .headerSearchPath("."),
-                .headerSearchPath("./GoogleCast")
-            ],
-            linkerSettings: [
-                .linkedFramework("CoreBluetooth"),
-                .linkedFramework("CoreText"),
-                .linkedFramework("MediaPlayer"),
-                .linkedFramework("Security"),
-                .linkedFramework("SystemConfiguration", .when(platforms: [.iOS]))
-            ]
-        ),
         .binaryTarget(
             name: "_GoogleCastBinaryTarget",
             url: "https://github.com/dushantSW/googlecast-ios-sdk-xcframeworks/releases/download/VERSION/_GoogleCast.xcframework.zip",
