@@ -31,7 +31,7 @@ jobs:
         if: steps.check.outputs.has_new_version == 'true'
         id: checksum
         run: |
-          echo "sha256=$(swift package compute-checksum GoogleCast.xcframework.zip)" >> "${GITHUB_OUTPUT}"
+          echo "sha256=$(swift package compute-checksum _GoogleCast.xcframework.zip)" >> "${GITHUB_OUTPUT}"
 
       - name: Update Package.swift
         if: steps.check.outputs.has_new_version == 'true'
