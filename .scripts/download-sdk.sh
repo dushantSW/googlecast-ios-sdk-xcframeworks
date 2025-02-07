@@ -48,9 +48,8 @@ if [ -d "$SDK_DIR" ]; then
     DEST_DIR="../Sources/GoogleCast"
     mkdir -p "$DEST_DIR"
 
-    echo "Moving header files and module maps..."
+    echo "Moving header files..."
     find . -name "*.h" -exec mv {} "$DEST_DIR/" \;
-    find . -name "*.modulemap" -exec mv {} "$DEST_DIR/" \;
     
     # Return to the project root
     cd "$PROJECT_ROOT"
